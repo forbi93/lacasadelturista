@@ -30,6 +30,17 @@ jobs:
           name: java-app
           path: '${{ github.workspace }}/target/*.war'
 
+  release-project:
+    name: Release project
+    runs-on: ubuntu-latest
+    needs: build-project
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: static-site
+      - name: Test artifact download
+        run: ls -R
   deploy:
     runs-on: ubuntu-latest
     needs: build
